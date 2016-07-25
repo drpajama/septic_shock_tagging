@@ -1,0 +1,141 @@
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap-theme.min.css' %}" />
+<link rel="stylesheet" href="{% static 'qshock/style.css' %}">
+
+
+<nav class="navbar navbar-default navbar-static-top">
+    <p class="navbar-text">A shock event of patient: {{case.subject_id}} on {{case.occurrence_date}}</p>
+    </nav>
+
+<div class="container-fluid">
+
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Event Profile</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ case.patient_summary }}
+  </div>
+</div>
+
+
+<br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Occurrence Date (The year is random-deidentified)</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ case.occurrence_date|linebreaks }}
+  </div>
+</div>
+
+
+<br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Pressor use Summary of the day</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ case.pressor_events_day_summary|linebreaks }}
+  </div>
+</div>
+
+
+<br/>
+
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>BP Trend Summary</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ case.bp_trend_day_summary|linebreaks }}
+  </div>
+</div>
+
+
+<br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Culture (Admission-Today) </h4></div>
+  <div class="panel-body fixed-panel">
+    {{ case.culture_all_summary|linebreaks }}
+  </div>
+</div>
+
+<br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Antibiotics (Today) </h4></div>
+  <div class="panel-body fixed-panel">
+    {{ case.abx_day_summary|linebreaks }}
+  </div>
+</div>
+
+
+    <br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Antibiotics (Admission-Today)</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ case.abx_day_summary|linebreaks }}
+  </div>
+</div>
+
+    <br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Lactate levels (Admission-Today)</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ case.lactate_all_summary|linebreaks }}
+  </div>
+</div>
+
+    <br/>
+<div  class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>All measurement (Today)</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ case.measurement_day_summary|linebreaks }}
+  </div>
+</div>
+
+
+        <br/>
+<div  class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Discharge Summary</h4></div>
+  <div class="panel-body fixed-panel-bigger">
+{{ case.dc_note|linebreaks }}
+  </div>
+</div>
+
+
+
+
+
+
+<div class="panel panel-warning smaller">
+    <div class="panel-heading"><h4>Choose your answer</h4></div>
+
+<form action = "{% url 'qshock:answer' case.id %}" method="post">
+    {% csrf_token %}
+
+    <div class="padded">
+
+    <input type = "radio" name="answer" id="answer1" value = "1"/>
+    <label for="answer1">1. Septic Shock</label><br/>
+    <input type = "radio" name="answer" id="answer2" value = "2"/>
+    <label for="answer2">2. Cardiogenic Shock</label><br/>
+    <input type = "radio" name="answer" id="answer3" value = "3"/>
+    <label for="answer3">3. Hypovolemic Shock</label><br/>
+    <input type = "radio" name="answer" id="answer4" value = "4"/>
+    <label for="answer4">4. Other types of shock</label><br/>
+    <input type = "radio" name="answer" id="answer5" value = "5"/>
+    <label for="answer5">5. Shock with very mixed features (unable to determine)</label><br/>
+    <input type = "radio" name="answer" id="answer6" value = "6"/>
+    <label for="answer6">6. No Shock</label><br/>
+    <input type = "radio" name="answer" id="answer7" value = "7"/>
+    <label for="answer7">6. Others (Please comment)</label>
+    <br/><br/>
+
+    <div class="form-group">
+    <label for="answer_text">Leave a comment if you want to specify otherwise</label>
+    <input type="text" class="form-control smaller" name = "answer_text" id="answer_text" placeholder="Here's your comment!">
+    </div>
+    <!--<textarea class="form-control" name = "answer_text" id = "answer_text" rows="3"></textarea>-->
+
+    <br/><br/>
+
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+</form>
+
+    </div>
