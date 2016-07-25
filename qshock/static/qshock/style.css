@@ -1,0 +1,41 @@
+h1 {
+    color: #FCA205;
+}
+
+body {
+    padding-left: 15px;
+}
+
+#container {
+    position:relative;
+    width:80%;
+    height:auto;
+}
+
+.smaller {
+    position:relative;
+    width:66%;
+    height:auto;
+}
+
+
+div.padded {
+    padding-left: 2em;
+    padding-top: 10px;
+    padding-bottom: 0.25in;
+
+}
+
+
+
+.fixed-panel {
+  min-height: 40;
+  max-height: 400;
+  overflow-y: scroll;
+}
+
+.fixed-panel-bigger {
+  min-height: 40;
+  max-height: 600;
+  overflow-y: scroll;
+}

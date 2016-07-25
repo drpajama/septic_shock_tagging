@@ -1,0 +1,9 @@
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap-theme.min.css' %}" />
+
+
+<h2>Your answer is successfully submitted.</h2>
+
+<a href="{% url 'qshock:dashboard' %}">Click to go back to the dashboard</a>

@@ -1,0 +1,30 @@
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap-theme.min.css' %}" />
+<link rel="stylesheet" href="{% static 'qshock/style.css' %}">
+<div class="page-header">
+    <h1>Let me know who you are!</h1>
+</div>
+
+
+
+<form  action = "{% url 'qshock:dashboard' %}" method="post">
+    {% csrf_token %}
+
+    <input type = "radio" name="responder_identity" id="responder_identity1" value = "1"/>
+    <label for="responder_identity1">1. Responder 1</label><br/>
+    <input type = "radio" name="responder_identity" id="responder_identity2" value = "2"/>
+    <label for="responder_identity2">2. Responder 2</label><br/>
+    <input type = "radio" name="responder_identity" id="responder_identity3" value = "3"/>
+    <label for="responder_identity3">3. Responder 3</label><br/>
+
+    <input type = "radio" name="responder_identity" id="test_user" value = "999"/>
+    <label for="responder_identity3">4. Test User (The response won't be saved) </label><br/>
+
+    <br/><br/>
+
+    <button type="submit" class="btn btn-primary btn-lg">Let's get started!!!</button>
+
+</form>
+
