@@ -1,0 +1,103 @@
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap-theme.min.css' %}" />
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script
+  src="{% static 'qshock/qshock.js'  %}"></script>
+<link rel="stylesheet" href="{% static 'qshock/style.css' %}">
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">qShock ver 1.0</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/qshock/">Home</a></li>
+      <li><a href="/qshock/dashboard/">Dashboard</a></li>
+        <li class="active"><a href="/qshock/dashboard/">ID: {{case.subject_id}}</a></li>
+     <li><a href="http://danwaldschmidt.com/wp-content/uploads/2015/01/episode-5-watch-now-1024x718.png">Help</a></li>
+      <li><a href="http://static-assets.komando.com/wp-content/uploads/2014/06/shutterstock_183201020.jpg">Donate Us (VISA or Mastercard)</a></li>
+    </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container-fluid">
+
+    <br/>
+
+    <form action="." method="post">
+
+<div class="panel panel-warning smaller">
+
+
+  <div class="panel-heading"><h4>Additional Contributing Factor</h4></div>
+  <div class="ui-widget-content">
+     <h3>I chose '{{primary_type}} shock' as the predominant cause of the shock episode, but I also believe that the following issue was also significantly contributing the hemodynamic instability (so the correction of the primary cause alone would not be enough to reserve the shock.)</h3>
+
+          {{form}}
+
+      <h3>You can determine 'how dominant {{primary_type}} shock is' as the cause of the shock episode, compared to the secondary component of shock you chose above.</h3>
+      (Note: We understand that this comparison would look totally arbitrary. It is only evaluating your intuition as a clinician- and it does nothing with the objective evaluation. You might think of a thought experiment. The shock is associated with increased mortality rate during the ICU stay. Let's say that you can selectively 'reverse/cure' each of shock component, leading to the partial reversal of the survival rate. You can compare the degree of the reversal which is caused by the elimination of each shock component.)
+
+
+      <br/>
+
+      <div class="divTable">
+        <div class="divTableBody">
+        <div class="divTableRow">
+        <div class="divTableCell">
+            <p>
+              <label for="amount_septic" id="primary_label">{{primary_type}} shock:</label>
+              <input type="text" id="amount_septic" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            </p></div>
+        <div class="divTableCell">
+
+            <div id="slider-septic" style="width:500px;"></div>
+
+        </div>
+
+
+        </div>
+
+                   <div class="divTableRow">
+        <div class="divTableCell">
+            <p>
+              <label for="amount_cardio" id="secondary_label">-------</label>
+              <input type="text" id="amount_cardio" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            </p></div>
+        <div class="divTableCell">
+
+            <div id="slider-cardio" style="width:500px;"></div>
+
+        </div>
+
+
+        </div>
+
+        </div>
+        </div>
+
+
+      <br/>
+  </div>
+
+    <div class="padded">
+    <button type="Submit" class="btn btn-primary btn-lg">Confirm</button>
+    </div>
+    </form>
+</div>
+

@@ -1,0 +1,273 @@
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap-theme.min.css' %}" />
+<link rel="stylesheet" href="{% static 'qshock/style.css' %}">
+
+<script type="text/javascript" src="{% static 'fusioncharts/fusioncharts.js' %}"></script>
+<script type="text/javascript" src="{% static 'fusioncharts/themes/fusioncharts.theme.fint.js' %}"></script>
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">qShock ver 1.0</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/qshock/">Home</a></li>
+      <li><a href="/qshock/dashboard/">Dashboard</a></li>
+        <li class="active"><a href="/qshock/dashboard/">ID: {{case.subject_id}}</a></li>
+     <li><a href="http://danwaldschmidt.com/wp-content/uploads/2015/01/episode-5-watch-now-1024x718.png">Help</a></li>
+      <li><a href="http://static-assets.komando.com/wp-content/uploads/2014/06/shutterstock_183201020.jpg">Donate Us (VISA or Mastercard)</a></li>
+    </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<div class="container-fluid">
+
+    <br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>What do we want to capture?</h4></div>
+  <div class="panel-body fixed-panel">
+    Sepsis-3 task force (2016) determined that Septic shock is "a subset of sepsis in which underlying circulatory and cellular/metabolic abnormalities are profound enough to substantially increase mortality", and the definition is quite open to interpretation. There should be an agreement among responders whether we want to strictly follow clinical criteria such as Sepsis-3. <a href="http://jama.jamanetwork.com/article.aspx?articleid=2492881"> [Click for the article]</a> The key question might need to be 'whether we should say this patient developed shock on a certin day ({{case.occurrence_date}} for the current case), and the shock was mainly caused by infection and sepsis' rather than following any clinical criteria. Also note that while most of sepsis definitions include 'suspected infection', and there is little discussion about exactly how to determine whether infection is “suspected.”. This also applies to septic shock and there is no clear criteria to determine whether certain shock event is secondary to infection.
+  </div>
+</div>
+
+    <br/>
+
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Event Profile</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ case.patient_summary }}
+  </div>
+</div>
+
+
+<br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Occurrence Date (The year is random-deidentified)</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ datetime|linebreaks }}
+  </div>
+</div>
+
+
+<br/>
+
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Pressor use (The current day)</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ pressor_today|linebreaks }}
+  </div>
+</div>
+
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Pressor use (Previous Day)</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ pressor_yesterday|linebreaks }}
+  </div>
+</div>
+
+    <div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Pressor use (Next Day)</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ pressor_tomorrow|linebreaks }}
+  </div>
+</div>
+
+<br/>
+
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>BP Trend (The current day)</h4></div>
+  <div class="panel-body fixed-panel-bigger-noscroll">
+       <div id="chart-bp-today"></div>
+  </div>
+</div>
+
+    <div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>BP Trend (The day before)</h4></div>
+  <div class="panel-body fixed-panel-bigger-noscroll">
+     <div id="chart-bp-yesterday"></div>
+  </div>
+</div>
+
+
+    <div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>BP Trend (Next Day)</h4></div>
+  <div class="panel-body fixed-panel-bigger-noscroll">
+     <div id="chart-bp-tomorrow"></div>
+  </div>
+</div>
+
+<br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Culture (Admission-Today) </h4></div>
+  <div class="panel-body fixed-panel">
+    {{ culture_sampling_all | linebreaks }}
+  </div>
+</div>
+
+<br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Antibiotics (Today) </h4></div>
+  <div class="panel-body fixed-panel">
+    {{ abx_events | linebreaks }}
+  </div>
+</div>
+
+
+    <br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Antibiotics (All)</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ abx_events_all |linebreaks }}
+  </div>
+</div>
+
+    <br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Lactate levels (The current day)</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ lactate_measurements |linebreaks }}
+  </div>
+</div>
+
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Lactate levels (All)</h4></div>
+  <div class="panel-body fixed-panel">
+    {{ lactate_measurements_all |linebreaks }}
+  </div>
+</div>
+
+
+    <div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Creatinine levels</h4></div>
+  <div class="panel-body fixed-panel-bigger-noscroll">
+      <div id="chart-creatinine"></div>
+  </div>
+</div>
+
+        <div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Daily Fluid Administration (Admission-Today)</h4></div>
+  <div class="panel-body fixed-panel">
+    ---- not ready
+  </div>
+</div>
+
+            <div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>ICU9/10 Codes / SNOMED Codes</h4></div>
+  <div class="panel-body fixed-panel">
+    ---- not ready
+  </div>
+</div>
+
+
+        <br/>
+<div  class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Discharge Summary</h4></div>
+  <div class="panel-body fixed-panel-bigger">
+{{ dc_note|linebreaks }}
+  </div>
+</div>
+
+    <br/>
+<div  class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Additional Measurements of the day ({{case.occurrence_date}})</h4>(It is big and not well organized! Please read if necessary)</div>
+
+  <div class="panel-body fixed-panel">
+    {{ case.measurement_day_summary|linebreaks }}
+  </div>
+</div>
+
+
+{{ map_today_output|safe }}
+{{ map_yesterday_output|safe }}
+{{ map_tomorrow_output|safe }}
+{{ creatinine_output|safe }}
+
+<div class="panel panel-warning smaller">
+    <div class="panel-heading"><h4>Your Choice</h4></div>
+
+    <!--
+<form action="{% url 'qshock:answer' case.id %}" method="post">
+    {% csrf_token %}
+
+
+    <div class = "padded">
+
+      {{ shock_type_form.type.0 }} <br/>
+      {{ shock_type_form.type.1 }} (e.g. cardiomyopathic, arrhythmia, mechanical) Note: The category DOES NOT include obstructive mechanical shock such as tension pneumothorax, cardiac tamponade, constrictive pericarditis or restrictive cardiomyopathy. <br/>
+        {{ shock_type_form.type.2 }}<br/>
+        {{ shock_type_form.type.3 }}<br/>
+        {{ shock_type_form.type.4 }} (e.g. non-septic distributive shock such as anaphylactic, neurogenic or toxin-induced shock. Pulmonary embolism. Mechanical obstructive shock such as tension pneumothorax, cardiac tamponade, constrictive pericarditis or restrictive cardiomyopathy.)<br/>
+        {{ shock_type_form.type.5 }}<br/>
+        {{ shock_type_form.type.6 }}<br/>
+
+    </div>
+
+     <div class = "padded">
+      {{ unusual_shock_form }}
+    </div>
+    <div class="padded">
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+    </div>
+</form>
+
+-->
+
+
+<form action="." method="post">
+    {% csrf_token %}
+
+
+    <div class = "padded">
+
+        <h3>I believe that the patient's hemodynamic instability (of the current day) was predominantly caused by......</h3>
+
+        {{form}}
+
+
+        <b>[ Note ]</b>
+        <ul>
+            <li><b>Cardiogenic shock</b>: This category includes cardiomyopathic, arrhythmia and mechanical causes of cardiogenic shock. Note that the category INCLUDES obstructive mechanical shock such as tension pneumothorax, cardiac tamponade, constrictive pericarditis or restrictive cardiomyopathy. </li>
+            <li><b>Other Shoock</b>: non-septic distributive shock such as anaphylactic, neurogenic or toxin-induced shock. Pulmonary embolism. (DOES NOT include obstructive shock such as tension pneumothorax or cardiac tamponade - please click the cardiogenic shock above!) </li>
+            <li><b>No Shoock</b>: This means that you do not think the patient developed any types of shock given day.</li>
+
+        </ul>
+
+
+        <br/>{{ checkbox }} <b>I want to add an additional cause of shock as a contributing factor.</b> (e.g. necrotizing pancreatitis leading to <b>[1. septic shock] combined with [2. hypovolemia]</b> secondary to poor oral intake.)<br/>
+
+
+    </div>
+
+
+        <br/>
+
+<!--
+    <div class="panel panel-warning smaller">
+    <div class="panel-heading"><h4>How confident are you about the decision above?</h4></div>
+          <div class="padded">
+<label class="radio-inline"><input type="radio" name="confidenceradio" value="1">1 (Not confident)</label>
+<label class="radio-inline"><input type="radio" name="confidenceradio" value="2">2 (Could be wrong)</label>
+<label class="radio-inline"><input type="radio" name="confidenceradio" value="3">3 (Likely)</label>
+        <label class="radio-inline"><input type="radio" name="confidenceradio" value="4">4 (Most likely)</label>
+
+        <label class="radio-inline"><input type="radio" name="confidenceradio" value="5">5 (Pretty sure)</label>
+              </div>
+        <div class = "padded">
+                <label for="answer_text">Can you tell us the key reason of having the confidence level for the diagnosis you made (optional)?</label>
+    <input type="text" class="form-control smaller" name = "confidencewhy" id="confidencewhy" placeholder="Why???">
+       </div>
+-->
+            <div class="padded">
+    <button type="Submit" class="btn btn-primary btn-lg">Next</button>
+    </div>
+</form>

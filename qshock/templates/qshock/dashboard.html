@@ -1,44 +1,38 @@
 
-
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap.min.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap-theme.min.css' %}" />
 <link rel="stylesheet" href="{% static 'qshock/style.css' %}">
 
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">qShock ver 1.0</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/qshock/">Home</a></li>
+        <li class="active"><a href="/qshock/dashboard/">Dashboard</a></li>
+      <li><a href="http://danwaldschmidt.com/wp-content/uploads/2015/01/episode-5-watch-now-1024x718.png">Help</a></li>
+      <li><a href="http://static-assets.komando.com/wp-content/uploads/2014/06/shutterstock_183201020.jpg">Donate Us (VISA or Mastercard)</a></li>
+    </ul>
 
-<div class="page-header">
-    <h1>Welcome Responder {{responder_id}}!!!</h1>
-</div>
+      <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
 
-
-
-
-<h2> Cases you (responder {{responder_id}}) need to answer </h2>
 
 
 <div class="container-fluid">
-{% if case_list_not_responded %}
-    <ul class="list-group">
-    {% for case in case_list_not_responded %}
-        <li class="list-group-item"><a href="{% url 'qshock:detail' case.id %}"> Case ID:{{ case.id }} (Subject {{case.subject_id}}, on {{case.occurrence_date}}) </a></li>
+
+    <ul class="list-group smaller">
+        <li class  = "list-group-item list-group-item active"><h4>Cases you need to answer </h4> (The order will shuffle)</li>
+
+    {% for case in cases_not_responded %}
+        <li class="list-group-item"><a href="{% url 'qshock:detail' case.id %}"> Case ID:{{ case.case_id }} (Patient ID: {{case.subject_id}}) </a></li>
     {% endfor %}
     </ul>
-{% else %}
-    <p>All cases are responded.</p>
-{% endif %}
+
 </div>
-
-<h2> Cases you answered </h2>
-
-<div class="container-fluid">
-{% if case_list_responded %}
-    <ul class="list-group">
-    {% for case in case_list_responded %}
-        <li class="list-group-item"><a href="{% url 'qshock:detail' case.id %}"> Case ID:{{ case.id }} (Subject {{case.subject_id}}, on {{case.occurrence_date}}) </a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No responded cases are available.</p>
-{% endif %}
-</div>
-

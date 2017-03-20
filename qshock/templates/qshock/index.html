@@ -3,11 +3,33 @@
 <link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap.min.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'qshock/bootstrap-theme.min.css' %}" />
 <link rel="stylesheet" href="{% static 'qshock/style.css' %}">
-<div class="page-header">
-    <h1>Let me know who you are!</h1>
-</div>
+
+<script type="text/javascript" src="{% static 'fusioncharts/fusioncharts.js' %}"></script>
+<script type="text/javascript" src="{% static 'fusioncharts/themes/fusioncharts.theme.fint.js' %}"></script>
 
 
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">qShock ver 1.0</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class = "active"><a href="#">Home</a></li>
+     <li><a href="http://danwaldschmidt.com/wp-content/uploads/2015/01/episode-5-watch-now-1024x718.png">Help</a></li>
+      <li><a href="http://static-assets.komando.com/wp-content/uploads/2014/06/shutterstock_183201020.jpg">Donate Us (VISA or Mastercard)</a></li>
+    </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+
+<br/>
+<div class="panel panel-primary smaller">
+  <div class="panel-heading"><h4>Let me know who you are!</h4></div>
+  <div class="panel-body fixed-panel">
 
 <form  action = "{% url 'qshock:dashboard' %}" method="post">
     {% csrf_token %}
@@ -15,16 +37,35 @@
     <input type = "radio" name="responder_identity" id="responder_identity1" value = "1"/>
     <label for="responder_identity1">1. Responder 1</label><br/>
     <input type = "radio" name="responder_identity" id="responder_identity2" value = "2"/>
-    <label for="responder_identity2">2. Responder 2</label><br/>
+    <label for="responder_identity2">2. Responder 2 (Hwan Kim) </label><br/>
     <input type = "radio" name="responder_identity" id="responder_identity3" value = "3"/>
     <label for="responder_identity3">3. Responder 3</label><br/>
+   <input type = "radio" name="responder_identity" id="responder_identity4" value = "4"/>
+    <label for="responder_identity4">4. Responder 4</label><br/>
+    <input type = "radio" name="responder_identity" id="responder_identity5" value = "5"/>
+    <label for="responder_identity5">5. Responder 5</label><br/>
+    <input type = "radio" name="responder_identity" id="responder_identity6" value = "6"/>
+    <label for="responder_identity6">6. Tester/Administrator 1 (PJ)</label><br/>
+    <input type = "radio" name="responder_identity" id="responder_identity7" value = "7"/>
+    <label for="responder_identity7">7. Tester/Administrator 2 (Adler)</label><br/>
 
     <input type = "radio" name="responder_identity" id="test_user" value = "999"/>
-    <label for="responder_identity3">4. Test User (The response won't be saved) </label><br/>
+    <label for="test_user">999. Test User (The response won't be saved) </label><br/>
 
     <br/><br/>
 
     <button type="submit" class="btn btn-primary btn-lg">Let's get started!!!</button>
 
 </form>
+  </div>
 
+        <!-- Fusion Charts will render here-->
+    <div id="chart-1"></div>
+    <!-- dumping JavaScript code here -->
+    {{ output|safe }}
+</div>
+
+
+
+
+Copyright by Adler Perotte MD, Joongheum Park, MD @ 2016
